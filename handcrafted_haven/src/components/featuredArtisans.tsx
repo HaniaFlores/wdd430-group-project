@@ -36,7 +36,7 @@ export default function FeaturedArtisans() {
                 src={artisan.image}
                 alt={artisan.product}
                 layout="responsive"
-                width={300}
+                width={200}
                 height={250}
                 className={styles.image}
               />
