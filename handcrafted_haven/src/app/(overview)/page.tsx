@@ -1,10 +1,10 @@
 // src/app/page.tsx
-import styles from './page.module.css';
-import Header from '../components/header';
-import AboutUs from '../components/aboutUs';
-import FeaturedArtisans from '../components/featuredArtisans';
-import Footer from '../components/footer';
-import mainStyles from './main.module.css'; 
+import styles from '@/app/page.module.css';
+import Header from '@/components/header';
+import AboutUs from '@/components/aboutUs';
+import FeaturedArtisans from '@/components/featuredArtisans';
+import Footer from '@/components/footer';
+import mainStyles from '@/app/main.module.css'; 
 export default function Home() {
   return (
     <>
