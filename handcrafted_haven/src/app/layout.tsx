@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Merriweather } from "next/font/google";
 import "./globals.css";
-import Header from "../components/header";
+// import Header from "../components/header";
 
 const merriweather = Merriweather({
   subsets: ["latin"],

@@ -1,5 +1,5 @@
 // src/app/page.tsx
-import styles from '@/app/page.module.css';
+// import styles from '@/app/page.module.css';
 import Header from '@/components/header';
 import AboutUs from '@/components/aboutUs';
 import FeaturedArtisans from '@/components/featuredArtisans';
