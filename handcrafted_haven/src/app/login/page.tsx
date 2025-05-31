@@ -27,9 +27,9 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Manejar la respuesta exitosa (por ejemplo, guardar la sesión, redirigir)
+        
         console.log('Login successful:', data);
-        router.push('/'); // Redirigir a la página principal
+        router.push('/'); 
       } else {
         setError(data?.message || 'Login failed');
       }

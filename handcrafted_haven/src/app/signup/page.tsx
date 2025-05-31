@@ -34,9 +34,9 @@ export default function SignUpPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Manejar la respuesta exitosa (por ejemplo, mostrar un mensaje, redirigir a login)
+       
         console.log('Registration successful:', data);
-        router.push('/login'); // Redirigir a la página de login
+        router.push('/login'); 
       } else {
         setError(data?.message || 'Registration failed');
       }

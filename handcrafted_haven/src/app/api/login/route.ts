@@ -13,9 +13,9 @@ export async function POST(request: Request) {
       });
     }
 
-    // SIMULACIÓN de búsqueda en base de datos (reemplazar con lógica real)
+    // Simulation in BD
     const user = {
-      email: 'test@test.com', // Simula un usuario en la DB
+      email: 'test@test.com', //  User created in BD
       password: '$2b$10$R4dYgmRu7t4L03KX8HyEhObrE1L3GBzxQcr/0EcUkNJaj4iqJJ/Ji', // Un hash de prueba
       name: 'Test User',
     };

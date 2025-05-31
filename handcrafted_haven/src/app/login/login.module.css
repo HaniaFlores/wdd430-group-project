@@ -11,7 +11,7 @@
   background-color: #f9f9f9;
 }
 
-.title { /* Cambiamos h1 a .title */
+.title { 
   margin-bottom: 1.5rem;
   color: #5f5449;
   font-family: var(--font-merriweather);
@@ -29,13 +29,13 @@
   flex-direction: column;
 }
 
-.label { /* Cambiamos label a .label */
+.label { 
   margin-bottom: 0.5rem;
   font-weight: bold;
   color: #333;
 }
 
-.input { /* Creamos una clase para los inputs */
+.input { 
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 4px;

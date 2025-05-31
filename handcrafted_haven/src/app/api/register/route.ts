@@ -10,12 +10,12 @@ export async function POST(request: Request) {
       return new NextResponse('Missing credentials', { status: 400 });
     }
 
-    // Aquí iría la lógica para conectar a la base de datos
-    // y verificar si el email ya existe. Por ahora, lo omitimos.
+    // This is where the logic to connect to the database would go
+    // and check if the email already exists. We'll ignore it for now.
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Aquí iría la lógica para guardar el nuevo usuario en la base de datos
+    // Here would go the logic to save the new user in the database
     console.log('Usuario registrado:', { name, email, hashedPassword });
 
     return NextResponse.json({ message: 'User registered successfully' }, { status: 201 });
