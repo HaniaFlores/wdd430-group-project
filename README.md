@@ -1,5 +1,6 @@
 # wdd430-group-project
 Group Project: Handcrafted Haven
+Vercel Domain: https://handcraftedhaven-woad.vercel.app/
 
 Team 16:
 
