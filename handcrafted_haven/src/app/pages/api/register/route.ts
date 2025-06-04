@@ -1,21 +1,40 @@
 // src/app/api/register/route.ts
 import { NextResponse } from 'next/server';
+import  pool  from '@/app/lib/db'
 import bcrypt from 'bcrypt';
+export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
   try {
     const { name, email, password } = await request.json();
 
     if (!name || !email || !password) {
-      return new NextResponse('Missing credentials', { status: 400 });
+      return NextResponse.json({message: 'Missing credentials'}, { status: 400 });
     }
 
     // This is where the logic to connect to the database would go
     // and check if the email already exists. We'll ignore it for now.
+    const checkUserQuery = 'SELECT * FROM users WHERE email = $1';
+    const userCheckResult = await pool.query(checkUserQuery, [email]);
+
+    if (userCheckResult.rowCount > 0) {
+      return NextResponse.json(
+        { message: 'Email already in use' },
+        { status: 409 } // 409 Conflict is a good status for duplicate values
+      );
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Here would go the logic to save the new user in the database
+    const insertUserQuery = `
+      INSERT INTO users (name, email, password)
+      VALUES ($1, $2, $3)
+      RETURNING id, name, email
+    `;
+    const result = await pool.query(insertUserQuery, [name, email, hashedPassword]);
+    const newUser = result.rows[0];
+
     console.log('Usuario registrado:', { name, email, hashedPassword });
 
     return NextResponse.json({ message: 'User registered successfully' }, { status: 201 });
