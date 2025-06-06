@@ -6,11 +6,14 @@ export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
   try {
-    const { name, email, password } = await request.json();
+    const { name, email, password, user_choice } = await request.json();
 
     if (!name || !email || !password) {
       return NextResponse.json({message: 'Missing credentials'}, { status: 400 });
     }
+    if (!['buyer', 'seller'].includes(user_choice)) {
+      return NextResponse.json({ message: 'Invalid role selection' }, { status: 400 });
+}
 
     // This is where the logic to connect to the database would go
     // and check if the email already exists. We'll ignore it for now.
@@ -28,14 +31,14 @@ export async function POST(request: Request) {
 
     // Here would go the logic to save the new user in the database
     const insertUserQuery = `
-      INSERT INTO users (name, email, password)
-      VALUES ($1, $2, $3)
-      RETURNING id, name, email
+      INSERT INTO users (name, email, password, user_choice)
+      VALUES ($1, $2, $3, $4)
+      RETURNING id, name, email, user_choice
     `;
-    const result = await pool.query(insertUserQuery, [name, email, hashedPassword]);
+    const result = await pool.query(insertUserQuery, [name, email, hashedPassword, user_choice]);
     const newUser = result.rows[0];
 
-    console.log('Usuario registrado:', { name, email, hashedPassword });
+    console.log('Usuario registrado:', { name, email, hashedPassword, user_choice });
 
     return NextResponse.json({ message: 'User registered successfully' }, { status: 201 });
   } catch (error) {

@@ -12,6 +12,7 @@ export default function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+  const [user_choice, setUserChoice] = useState('seller');
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -28,7 +29,7 @@ export default function SignUpPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, user_choice}),
       });
 
       const data = await response.json();
@@ -99,6 +100,19 @@ export default function SignUpPage() {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
+        <div className={styles.inputGroup}>
+        <label htmlFor="user_choice" className={styles.label}>Role</label>
+        <select
+          id="user_choice"
+          name="user_choice"
+          className={styles.input}
+          value={user_choice}
+          onChange={(e) => setUserChoice(e.target.value)}
+        >
+    <option value="buyer">Buyer</option>
+    <option value="seller">Seller</option>
+  </select>
+</div>
         <button type="submit" className={styles.button}>Sign Up</button>
         <p className={styles.loginLink}>
           Already have an account? <a href="/login">Log In</a>
