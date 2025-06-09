@@ -1,27 +1,32 @@
 // src/app/api/login/route.ts
 import { NextResponse } from 'next/server';
+import  pool from '@/app/lib/db'
 import bcrypt from 'bcrypt';
+export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
 
     if (!email || !password) {
-      return new NextResponse(JSON.stringify({ message: 'Missing credentials' }), {
+      return NextResponse.json(JSON.stringify({ message: 'Missing credentials' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
     // Simulation in BD
-    const user = {
+    /* const user = {
       email: 'test@test.com', //  User created in BD
       password: '$2b$10$R4dYgmRu7t4L03KX8HyEhObrE1L3GBzxQcr/0EcUkNJaj4iqJJ/Ji', // Un hash de prueba
       name: 'Test User',
-    };
+    };*/
+    const query = "SELECT email, password, name FROM users WHERE email = $1";
+    const result = await pool.query(query, [email]);
+    const user = result.rows[0];
 
     if (!user || user.email !== email) {
-      return new NextResponse(JSON.stringify({ message: 'Invalid credentials' }), {
+      return NextResponse.json(JSON.stringify({ message: 'Invalid credentials' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
       });
@@ -30,7 +35,7 @@ export async function POST(request: Request) {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
-      return new NextResponse(JSON.stringify({ message: 'Invalid credentials' }), {
+      return NextResponse.json(JSON.stringify({ message: 'Invalid credentials' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
       });
@@ -41,7 +46,7 @@ export async function POST(request: Request) {
 
   } catch (error) {
     console.error('Error logging in:', error);
-    return new NextResponse(JSON.stringify({ message: 'Something went wrong' }), {
+    return NextResponse.json(JSON.stringify({ message: 'Something went wrong' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
